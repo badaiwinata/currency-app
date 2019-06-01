@@ -16,7 +16,7 @@ export default class Converter extends Component {
 
   inputAmount = (e) => {
     this.setState({
-      amount : e.target.value
+      amount: e.target.value
     })
   }
 
@@ -48,6 +48,7 @@ export default class Converter extends Component {
                   </h3>
                 </MDBRow>
               </div>
+
               <MDBCardBody className="mx-4 mt-4">
                 <MDBInput
                   label="USD - United States Dollars"
@@ -56,7 +57,14 @@ export default class Converter extends Component {
                   value={this.state.amount}
                   onChange={this.inputAmount}
                   validate />
-                ::: show list :::
+                <MDBBtn
+                  type="button"
+                  color="orange"
+                  rounded
+                  onClick={this.convertHandler}
+                >
+                  <MDBIcon icon="exchange-alt" /> Convert
+                </MDBBtn>
                 <AddMoreCurrencies />
               </MDBCardBody>
             </MDBCard>
