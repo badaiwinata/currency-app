@@ -5,8 +5,36 @@ import {
   MDBBtn, MDBIcon
 } from 'mdbreact';
 import AddMoreCurrencies from './AddMoreCurrencies';
+import axios from "axios";
 
 export default class Converter extends Component {
+
+  state = {
+    amount: 10,
+
+  }
+
+  inputAmount = (e) => {
+    this.setState({
+      amount : e.target.value
+    })
+  }
+
+  convertHandler = () => {
+
+  }
+
+  componentDidMount() {
+    axios.get("https://api.exchangeratesapi.io/latest?base=USD")
+      .then(response => {
+        const currencyAr = ["USD"]
+        for (const key in response.data.rates) {
+          currencyAr.push(key)
+        }
+        this.setState({ currencies: currencyAr.sort() })
+      })
+  }
+
   render() {
     return (
       <MDBContainer>
@@ -21,7 +49,13 @@ export default class Converter extends Component {
                 </MDBRow>
               </div>
               <MDBCardBody className="mx-4 mt-4">
-                <MDBInput label="USD - United States Dollars" group type="number" validate />
+                <MDBInput
+                  label="USD - United States Dollars"
+                  group
+                  type="text"
+                  value={this.state.amount}
+                  onChange={this.inputAmount}
+                  validate />
                 ::: show list :::
                 <AddMoreCurrencies />
               </MDBCardBody>
